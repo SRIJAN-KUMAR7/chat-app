@@ -1,17 +1,27 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+const cors = require("cors"); 
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server); // Create socket.io server
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+  },
+});
+
+app.use(cors());
 
 // When a user connects
 io.on("connection", (socket) => {
   console.log("A user connected");
 
   // Notify others when a user joins
-  socket.on("newUser", (username) => {
+  socket.on("newUser ", (username) => {
     socket.username = username; // Store the username in socket object
     socket.broadcast.emit("user-connected", username); // Emit to everyone except the sender
   });
