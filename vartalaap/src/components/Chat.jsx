@@ -3,6 +3,7 @@ import React from "react";
 const Chat = ({ user, message, setMessage, messages, handleSendMessage }) => {
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && message.trim() !== "") {
+      event.preventDefault();
       handleSendMessage(event);
     }
   };
