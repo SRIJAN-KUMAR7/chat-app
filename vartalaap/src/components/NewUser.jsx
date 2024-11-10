@@ -18,7 +18,7 @@ const NewUser = ({ newUser, onChange, onSubmit }) => {
             />
           </div>
           <button type="submit" className="btn btn-primary mt-2">
-            Join Chat
+            Join Chat Room!
           </button>
         </form>
       </div>
