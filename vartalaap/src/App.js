@@ -16,7 +16,13 @@ function App() {
 
   useEffect(() => {
     socket.on("message", (newMessage) => {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      
+      if(newMessage.user!==user){
+        console.log(messages);
+        
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      }
+     
     });
 
     socket.on("user-connected", (username) => {

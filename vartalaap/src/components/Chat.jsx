@@ -9,7 +9,7 @@ const Chat = ({ user, message, setMessage, messages, handleSendMessage }) => {
   };
 
   return (
-    <div className="card w-100 bg-dark text-white border-light">
+    <div className="card w-100 bg-dark text-white border-light"> 
       <div className="row vh-95">
         <div className="col-12 col-lg-12 col-xl-12 d-flex flex-column">
           <div className="py-2 px-4 w-100 border-bottom border-light bg-dark">
@@ -45,7 +45,7 @@ const Chat = ({ user, message, setMessage, messages, handleSendMessage }) => {
                 placeholder="Type your message..."
                 value={message}
                 onChange={({ currentTarget: input }) => setMessage(input.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
               />
               <button className="btn btn-info" onClick={handleSendMessage}>
                 Send

@@ -19,9 +19,9 @@ const Main = () => {
       ]);
     });
 
-    socket.on("message", (newMessage) => {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
+    // socket.on("message", (newMessage) => {
+    //   setMessages((prevMessages) => [...prevMessages, newMessage]);
+    // });
 
     return () => {
       socket.off("user-connected");
@@ -37,13 +37,18 @@ const Main = () => {
     setUser(newUser);
     socket.emit("newUser", newUser); 
   }
-
   function handleSendMessage() {
-    const newMessage = { user, text: message };
-    socket.emit("sendMessage", newMessage); 
-    setMessages([...messages, newMessage]); 
-    setMessage(""); 
+    if (message.trim() !== "") {
+      const newMessage = { user, text: message };
+     
+  
+      
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessage(""); // Clear the input after sending the message
+    }
   }
+  
+  
 
   return (
     <main className="content bg-dark text-white min-vh-100">
