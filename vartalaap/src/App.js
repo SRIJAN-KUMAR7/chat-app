@@ -68,7 +68,8 @@ function App() {
     if (message.trim() !== "") {
       const newMessage = { user, text: message };
       socket.emit("sendMessage", newMessage);
-      setMessages([...messages, newMessage]);
+      // setMessages([...messages, newMessage]); //corrected this problem 
+      
       setMessage("");
     }
   }
