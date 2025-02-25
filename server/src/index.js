@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
   // Notify when a user disconnects
   socket.on("disconnect", () => {
     if (socket.username) {
-      socket.broadcast.emit("user-disconnected", socket.username);
+      socket.broadcast.emit("user-disconnected", socket.username); //namaste dunia
     }
   });
 });
