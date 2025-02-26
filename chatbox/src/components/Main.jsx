@@ -83,7 +83,7 @@ import { io } from "socket.io-client";
 import NewUser from "./components/NewUser";
 import Chat from "./components/Chat";
 
-const socket = io("http://localhost:4000"); // ✅ Make sure port matches backend
+const socket = io(import.meta.env.VITE_SERVER_URL || "http://localhost:4000"); // ✅ Make sure port matches backend
 
 const Main = () => {
   const [newUser, setNewUser] = useState("");
@@ -99,10 +99,10 @@ const Main = () => {
       ]);
     });
 
-    socket.on("message", (newMessage) => {  // ✅ Receive messages
+    socket.on("message", (newMessage) => {  
       setMessages((prevMessages) => [...prevMessages, newMessage]);
+      console.log(newMessage)
     });
-
     return () => {
       socket.off("user-connected");
       socket.off("message");
@@ -113,7 +113,7 @@ const Main = () => {
     setNewUser(event.target.value);
   }
 
-  function logNewUser(event) { // ✅ Prevent form refresh
+  function logNewUser(event) { 
     event.preventDefault();
     setUser(newUser);
     socket.emit("newUser", newUser);

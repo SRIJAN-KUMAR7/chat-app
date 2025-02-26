@@ -6,7 +6,7 @@ import NewUser from "./components/NewUser";
 import Chat from "./components/Chat";
 import "./App.css";
 
-const socket = io("http://localhost:4000");
+const socket = io(import.meta.env.VITE_SERVER_URL || 'http://localhost:4000');
 
 function App() {
   const [newUser, setNewUser] = useState("");
@@ -81,7 +81,7 @@ function App() {
   }
 
   return (
-    <main className="content bg-dark text-white min-vh-100">
+    <main className="min-h-screen content bg-dark text-white min-vh-100">
       <div className="container mt-3">
         {user ? (
           <Chat
