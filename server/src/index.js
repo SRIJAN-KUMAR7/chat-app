@@ -6,41 +6,48 @@ require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
+
+// Proper CORS setup for Socket.IO
 const io = socketIo(server, {
   cors: {
-    origin: "*",
+    origin: "*", // Allow all origins
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
   },
 });
 
+// Middleware for Express (optional, mainly for REST APIs)
 app.use(cors());
 
 // When a user connects
 io.on("connection", (socket) => {
-  
-  
-  socket.on("newUser ", (username) => {
+  console.log("A user connected");
+
+  // Fix the typo in "newUser" event
+  socket.on("newUser", (username) => {
     socket.username = username; // Store the username in socket object
     socket.broadcast.emit("user-connected", username); // Emit to everyone except the sender
-  console.log(username + ' connected')
+    console.log(`${username} connected`);
   });
-
 
   // Handle incoming messages
   socket.on("sendMessage", (message) => {
     io.emit("message", message);
+    console.log(`Message received: ${message}`);
   });
 
+  // When a user disconnects
   socket.on("disconnect", () => {
     if (socket.username) {
-      socket.broadcast.emit("user-disconnected", socket.username); //namaste dunia
+      socket.broadcast.emit("user-disconnected", socket.username);
+      console.log(`${socket.username} disconnected`);
     }
   });
 });
 
-// Start the server 
-server.listen(4000, () => {
-  console.log("Server is running on http://localhost:4000");
+// Start the server
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
