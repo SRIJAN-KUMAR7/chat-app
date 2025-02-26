@@ -18,7 +18,7 @@ app.use(cors());
 
 // When a user connects
 io.on("connection", (socket) => {
-  console.log("A user connected");
+  console.log("${username} user connected");//updated the username so that i can log his /her name in the terminal
 
   // Notify others when a user joins
   socket.on("newUser ", (username) => {
@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start the server
+// Start the server 
 server.listen(4000, () => {
   console.log("Server is running on http://localhost:4000");
 });
